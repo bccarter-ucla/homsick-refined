@@ -13,3 +13,49 @@
     I hope that this space can provide a loving respite for people experiencing homesickness. </h4>
 </body>
 </html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Cat Images</title>
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        // Function to fetch random cat images from the CatAPI
+        function fetchCatImages() {
+            // Number of random images to fetch
+            var numberOfImages = 5;
+
+            // URL of the CatAPI endpoint for random images
+            var apiUrl = "https://api.thecatapi.com/v1/images/search?limit=" + numberOfImages;
+
+            // Make a fetch request to the CatAPI
+            fetch(apiUrl)
+                .then(response => response.json()) // Parse the JSON response
+                .then(data => {
+                    // Iterate over the array of image objects and display each image
+                    data.forEach(cat => {
+                        var img = document.createElement("img");
+                        img.src = cat.url;
+                        document.getElementById("cat-images").appendChild(img);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching cat images:', error);
+                    document.getElementById("cat-images").innerHTML = "Error fetching cat images.";
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Random Cat Images</h1>
+    <button onclick="fetchCatImages()">Fetch Cat Images</button>
+    <div id="cat-images"></div>
+</body>
+</html>
